@@ -48,15 +48,12 @@ describe('PROFILES POST E GET', () => {
             })
         })
     })
-    context('validar api consultar usuário especifico - GET UserID', () => {
+    context('consultar usuário especifico', () => {
         // get para pegar id
         it('consultar usuário pelo ID com sucesso', () => {
-            cy.request({
-                method: 'GET',
-                url: '/api/profile/me',
-                log: true
-            }).then(({ body }) => {
-                
+            cy.consultarUsuario(
+            ).then(({ body }) => {
+                            
                 cy.request({
                     method: 'GET',
                     url: `/api/profile/user/${body.user._id}`,
@@ -67,15 +64,10 @@ describe('PROFILES POST E GET', () => {
                 })
             })
         })
-    })   
-    context('validar api selecionar repositório GitHub - GET github', () => {
-        // get para pegar id
-        it('selecionar repositorios github', () => {
-            cy.request({
-                method: 'GET',
-                url: '/api/profile/me',
-                log: true
-            }).then(({ body }) => {
+     
+        it('selecionar repositorio github', () => {
+            cy.consultarUsuario(
+            ).then(({ body }) => {
 
                 cy.request({
                     url: `/api/profile/github/${body.gitHubUsername}`   

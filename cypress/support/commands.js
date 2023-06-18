@@ -7,9 +7,17 @@ Cypress.Commands.add('login', (email, password) => {
             log: true,
             body: {
                 email,
-                password
+                password 
             }   
         })
     }, { cacheAcrossSpecs: true })
-    
+})
+
+Cypress.Commands.add('consultarUsuario', () => {
+
+    cy.request({
+        method: 'GET',
+        url: '/api/profile/me',
+        log: true
+    })
 })
