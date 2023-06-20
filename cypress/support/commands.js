@@ -21,3 +21,8 @@ Cypress.Commands.add('consultarUsuario', () => {
         log: true
     })
 })
+
+//seleciona um elemento pelo atributo data-test
+Cypress.Commands.add('getElement', (seletor) => {
+    return cy.get(`[data-test=${seletor}]`)
+})

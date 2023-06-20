@@ -64,9 +64,9 @@ describe('cabeçalho da página home', () => {
         ].forEach(({ seletor, link, menu }) => {
 
             it.only(`valida o menu ${menu}`, () => {
-                cy.get(`[data-test=${seletor}]`)
+                cy.getElement(seletor)
                     .should('have.attr', 'href', link)
-                    .and('not.have.attr', 'target')
+                    .and('not.have.attr', 'target', 'blank')
                     .and('have.text', menu)
             })
         })
