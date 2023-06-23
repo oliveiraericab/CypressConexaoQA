@@ -1,4 +1,12 @@
 describe('cabeçalho da página home', () => {
+    
+    const validarMenu = (seletor, link, menu) => {
+
+        cy.getElement(seletor)
+            .should('have.attr', 'href', link)
+            .and('not.have.attr', 'target', 'blank')
+            .and('have.text', menu)
+}
     context('não logado', () => {
         beforeEach(() => {
             cy.visit('/')
@@ -63,7 +71,7 @@ describe('cabeçalho da página home', () => {
             { seletor: 'navbar-login', link: '/login', menu: 'Login' }
         ].forEach(({ seletor, link, menu }) => {
 
-            it.only(`valida o menu ${menu}`, () => {
+            it(`valida o menu ${menu}`, () => {
                 cy.getElement(seletor)
                     .should('have.attr', 'href', link)
                     .and('not.have.attr', 'target', 'blank')
@@ -73,6 +81,23 @@ describe('cabeçalho da página home', () => {
     })
 
     context('logado', () => {
-        
+    
+        beforeEach(() => {
+            cy.login(Cypress.env('email1'), Cypress.env('senha1'))
+            cy.visit('/dashboard')
+        })
+
+        ;[
+            { seletor: 'navbar-conexaoQA', link: '/', menu: ' ConexãoQA' },
+            { seletor: 'navbar-posts', link: '/posts', menu: 'Posts' },
+            { seletor: 'navbar-dashboard', link: '/dashboard', menu: ' Dashboard' },
+            { seletor: 'navbar-about', link: '/sobre', menu: 'Sobre' },
+            { seletor: 'navbar-logout', link: '/', menu: ' Sair' }
+        ].forEach(({ seletor, link, menu }) => {
+
+            it(`valida o menu ${menu}`, () => {
+                validarMenu(seletor, link, menu)
+            })         
+        })            
     })
 })
